@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ats. // 100% Functional AI Resume Scanner</title>
-<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ats. // 100% Certified Asynchronous AI Resume Scanner</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
-
-<style>
+    <style>
         body {
             background-color: #0b0f19;
             background-image: 
@@ -44,16 +44,15 @@
             box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
         }
 
-        /* Fixed Active State Glow Animations */
-        .dropzone-box {
+        .dropzone-container {
             border: 2px dashed rgba(0, 242, 254, 0.3);
             background: rgba(15, 23, 42, 0.5);
             transition: all 0.2s ease-in-out;
         }
-        .dropzone-box.dragover-active {
-            border-color: rgba(0, 242, 254, 1) !important;
-            background: rgba(6, 182, 212, 0.15) !important;
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.4);
+        .dropzone-container.drag-over {
+            border-color: #00f2fe !important;
+            background: rgba(6, 182, 212, 0.2) !important;
+            box-shadow: 0 0 30px rgba(0, 242, 254, 0.4);
         }
 
         .cube-container { position: relative; width: 100px; height: 100px; perspective: 400px; }
@@ -87,263 +86,288 @@
             border: 1px solid rgba(255, 255, 255, 0.05);
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-</style>
+    </style>
 </head>
 <body class="text-slate-200 font-sans min-h-screen flex flex-col justify-between">
 
-<header class="w-full max-w-7xl mx-auto px-4 mt-6">
-<div class="bg-slate-950/80 border border-slate-800/80 rounded-2xl px-6 py-4 flex flex-wrap justify-between items-center shadow-2xl backdrop-blur-md">
-<div class="flex items-center space-x-4">
-<div class="relative w-12 h-12 rounded-full bg-gradient-to-tr from-cyan-500 to-indigo-500 p-[2px] shadow-[0_0_15px_rgba(6,182,212,0.4)]">
-<div class="w-full h-full bg-slate-900 rounded-full flex items-center justify-center text-cyan-400">
-<i class="fa-solid fa-robot text-xl"></i>
-</div>
-</div>
-<div class="flex items-baseline space-x-2">
-<span class="text-3xl font-black tracking-tighter text-cyan-400 neon-logo">ats.</span>
-<span class="text-xs uppercase font-mono tracking-widest text-slate-400 border-l border-slate-800 pl-2">Real NLP Analytics Engine</span>
-</div>
-</div>
-<div class="border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 font-mono text-xs px-4 py-2 rounded-full tracking-widest uppercase">
-                INTELLIGENT SCANNERS LIVE
-</div>
-</div>
-</header>
+    <header class="w-full max-w-7xl mx-auto px-4 mt-6">
+        <div class="bg-slate-950/80 border border-slate-800/80 rounded-2xl px-6 py-4 flex flex-wrap justify-between items-center shadow-2xl backdrop-blur-md">
+            <div class="flex items-center space-x-4">
+                <div class="relative w-12 h-12 rounded-full bg-gradient-to-tr from-cyan-500 to-indigo-500 p-[2px] shadow-[0_0_15px_rgba(6,182,212,0.4)]">
+                    <div class="w-full h-full bg-slate-900 rounded-full flex items-center justify-center text-cyan-400">
+                        <i class="fa-solid fa-robot text-xl"></i>
+                    </div>
+                </div>
+                <div class="flex items-baseline space-x-2">
+                    <span class="text-3xl font-black tracking-tighter text-cyan-400 neon-logo">ats.</span>
+                    <span class="text-xs uppercase font-mono tracking-widest text-slate-400 border-l border-slate-800 pl-2">Asynchronous Core Engine</span>
+                </div>
+            </div>
+            <div class="border border-cyan-500/30 bg-cyan-500/10 text-cyan-400 font-mono text-xs px-4 py-2 rounded-full tracking-widest uppercase">
+                INTELLIGENT INTEGRATION FIXED
+            </div>
+        </div>
+    </header>
 
-<main class="w-full max-w-7xl mx-auto px-4 py-8 flex-grow">
-<div class="hologram-screen p-6 md:p-10 relative overflow-hidden">
-
-<div class="text-center max-w-4xl mx-auto mb-10 relative z-10">
-<h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug">
+    <main class="w-full max-w-7xl mx-auto px-4 py-8 flex-grow">
+        <div class="hologram-screen p-6 md:p-10 relative overflow-hidden">
+            
+            <div class="text-center max-w-4xl mx-auto mb-10 relative z-10">
+                <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white tracking-tight leading-snug">
                     OPTIMIZE YOUR RESUME BEFORE THE <br>
-<span class="bg-gradient-to-r from-cyan-400 via-teal-400 to-indigo-400 bg-clip-text text-transparent font-black tracking-wide uppercase">
+                    <span class="bg-gradient-to-r from-cyan-400 via-teal-400 to-indigo-400 bg-clip-text text-transparent font-black tracking-wide uppercase">
                         COMPANY'S AI REJECTS IT!
-</span>
-</h2>
-</div>
+                    </span>
+                </h2>
+            </div>
 
-<div class="grid grid-cols-1 lg:grid-cols-7 gap-6 items-stretch mb-10 relative z-10">
+            <div class="grid grid-cols-1 lg:grid-cols-7 gap-6 items-stretch mb-10 relative z-10">
+                
+                <div class="lg:col-span-3 flex flex-col space-y-2">
+                    <div class="flex justify-between items-center">
+                        <label class="text-xs font-mono tracking-wider text-cyan-400 uppercase"><i class="fa-solid fa-file-invoice mr-1"></i> STEP 1: RESUME INPUT</label>
+                        <div class="inline-flex rounded-md p-0.5 bg-slate-900/80 border border-slate-800">
+                            <button type="button" onclick="switchResumeMode('upload')" id="btn-mode-upload" class="px-2.5 py-1 text-[10px] font-mono uppercase rounded-md bg-cyan-500/20 text-cyan-400 font-bold transition">File Upload</button>
+                            <button type="button" onclick="switchResumeMode('text')" id="btn-mode-text" class="px-2.5 py-1 text-[10px] font-mono uppercase rounded-md text-slate-400 hover:text-slate-200 transition">Paste Text</button>
+                        </div>
+                    </div>
 
-<div class="lg:col-span-3 flex flex-col space-y-2">
-<div class="flex justify-between items-center">
-<label class="text-xs font-mono tracking-wider text-cyan-400 uppercase"><i class="fa-solid fa-file-invoice mr-1"></i> STEP 1: RESUME INPUT</label>
-<div class="inline-flex rounded-md p-0.5 bg-slate-900/80 border border-slate-800">
-<button type="button" onclick="switchResumeMode('upload')" id="btn-mode-upload" class="px-2.5 py-1 text-[10px] font-mono uppercase rounded-md bg-cyan-500/20 text-cyan-400 font-bold transition">File Upload</button>
-<button type="button" onclick="switchResumeMode('text')" id="btn-mode-text" class="px-2.5 py-1 text-[10px] font-mono uppercase rounded-md text-slate-400 hover:text-slate-200 transition">Paste Text</button>
-</div>
-</div>
+                    <div id="resumeUploadContainer" class="dropzone-container flex-grow rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer min-h-[224px] relative transition-all">
+                        
+                        <input type="file" id="resumeFileInput" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-30" accept=".pdf,.docx">
+                        
+                        <div class="space-y-3 w-full pointer-events-none relative z-10">
+                            <div class="text-4xl text-cyan-400"><i class="fa-solid fa-cloud-arrow-up"></i></div>
+                            <div class="text-sm font-mono text-slate-200">Drag & Drop or <span class="text-cyan-400 font-bold underline">Browse Files</span></div>
+                            <p class="text-[10px] text-slate-500 font-mono">SUPPORTS: .PDF & .DOCX Formats</p>
+                            
+                            <div id="fileUploadStatus" class="text-xs text-emerald-400 font-mono hidden bg-emerald-500/10 border border-emerald-500/30 py-2.5 px-3 rounded-lg mt-2 font-bold max-w-full truncate"></div>
+                        </div>
+                    </div>
 
-<div id="resumeUploadContainer" class="dropzone-box flex-grow rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer min-h-[224px] relative hover:border-cyan-400/60 transition-all">
+                    <textarea id="resumeText" class="w-full h-56 glass-input rounded-xl p-4 text-slate-300 focus:outline-none text-sm placeholder-slate-600 font-mono hidden" placeholder="Or copy and paste the raw text matrix of your resume layout here..."></textarea>
+                </div>
 
-<input type="file" id="resumeFileInput" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-30" accept=".pdf,.docx">
+                <div class="lg:col-span-1 flex flex-col items-center justify-center space-y-4 py-4 min-h-[140px]">
+                    <div class="cube-container hidden lg:block">
+                        <div class="cube-core">
+                            <div class="cube-face face-front"></div>
+                            <div class="cube-face face-back"></div>
+                            <div class="cube-face face-left"></div>
+                            <div class="cube-face face-right"></div>
+                            <div class="cube-face face-top"></div>
+                            <div class="cube-face face-bottom"></div>
+                        </div>
+                    </div>
+                    
+                    <button type="button" onclick="processParsingEngine()" id="scanButton" class="w-full lg:w-auto px-6 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-black text-xs tracking-widest uppercase rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-[0_0_25px_rgba(6,182,212,0.4)] cursor-pointer whitespace-nowrap z-40 relative">
+                        <i class="fa-solid fa-microchip mr-1.5"></i> SCAN & ANALYZE
+                    </button>
+                </div>
 
-<div class="space-y-3 w-full pointer-events-none relative z-10">
-<div class="text-4xl text-cyan-400"><i class="fa-solid fa-cloud-arrow-up"></i></div>
-<div class="text-sm font-mono text-slate-200">Drag & Drop or <span class="text-cyan-400 font-bold underline">Browse Files</span></div>
-<p class="text-[10px] text-slate-500 font-mono">SUPPORTS: .PDF & .DOCX Formats</p>
-<div id="fileUploadStatus" class="text-xs text-emerald-400 font-mono hidden truncate max-w-full bg-emerald-500/10 border border-emerald-500/20 py-2 px-3 rounded-lg mt-2 pointer-events-auto"></div>
-</div>
-</div>
+                <div class="lg:col-span-3 flex flex-col space-y-2">
+                    <label class="text-xs font-mono tracking-wider text-indigo-400 uppercase block"><i class="fa-solid fa-network-wired mr-1"></i> STEP 2: Paste Job Description (JD)</label>
+                    <textarea id="jdText" class="w-full flex-grow h-56 glass-input rounded-xl p-4 text-slate-300 focus:outline-none text-sm placeholder-slate-600 font-mono" placeholder="Paste the target employer's full job description or structural requirements here..."></textarea>
+                </div>
+            </div>
 
-<textarea id="resumeText" class="w-full h-56 glass-input rounded-xl p-4 text-slate-300 focus:outline-none text-sm placeholder-slate-600 font-mono hidden" placeholder="Or copy and paste the raw text matrix of your resume layout here..."></textarea>
-</div>
+            <div id="dashboardReport" class="hidden transition-all duration-700 opacity-0 space-y-8 pt-6 border-t border-cyan-500/20 relative z-10">
+                <div class="text-center">
+                    <span class="bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 font-mono text-xs px-6 py-2 rounded-md uppercase tracking-widest inline-block">
+                        <i class="fa-solid fa-chart-bar mr-2"></i> Real-Time AI Metrics Analysis
+                    </span>
+                </div>
 
-<div class="lg:col-span-1 flex flex-col items-center justify-center space-y-4 py-4 min-h-[140px]">
-<div class="cube-container hidden lg:block">
-<div class="cube-core">
-<div class="cube-face face-front"></div>
-<div class="cube-face face-back"></div>
-<div class="cube-face face-left"></div>
-<div class="cube-face face-right"></div>
-<div class="cube-face face-top"></div>
-<div class="cube-face face-bottom"></div>
-</div>
-</div>
-
-<button type="button" onclick="processParsingEngine()" id="scanButton" class="w-full lg:w-auto px-6 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-black text-xs tracking-widest uppercase rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-[0_0_25px_rgba(6,182,212,0.4)] cursor-pointer whitespace-nowrap z-40 relative">
-<i class="fa-solid fa-microchip mr-1.5"></i> SCAN & ANALYZE
-</button>
-</div>
-
-<div class="lg:col-span-3 flex flex-col space-y-2">
-<label class="text-xs font-mono tracking-wider text-indigo-400 uppercase block"><i class="fa-solid fa-network-wired mr-1"></i> STEP 2: Paste Job Description (JD)</label>
-<textarea id="jdText" class="w-full flex-grow h-56 glass-input rounded-xl p-4 text-slate-300 focus:outline-none text-sm placeholder-slate-600 font-mono" placeholder="Paste the target employer's full job description or structural requirements here..."></textarea>
-</div>
-</div>
-
-<div id="dashboardReport" class="hidden transition-all duration-700 opacity-0 space-y-8 pt-6 border-t border-cyan-500/20 relative z-10">
-<div class="text-center">
-<span class="bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 font-mono text-xs px-6 py-2 rounded-md uppercase tracking-widest inline-block">
-<i class="fa-solid fa-chart-bar mr-2"></i> Real-Time AI Metrics Analysis
-</span>
-</div>
-
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<div class="floating-panel p-6 rounded-2xl flex flex-col items-center justify-center text-center border" id="statusCardBorder">
-<span class="text-xs font-mono tracking-widest text-slate-400 uppercase mb-4">Overall ATS Match</span>
-<div class="radial-gauge w-36 h-36 rounded-full flex flex-col items-center justify-center relative shadow-inner" id="gaugeCircle">
-<span class="text-4xl font-black tracking-tighter" id="scoreValue">0%</span>
-<span class="text-[9px] font-mono tracking-widest uppercase font-bold mt-1" id="riskStatusLabel">Calculating</span>
-</div>
-<p class="text-xs text-slate-400 mt-4 max-w-xs font-medium" id="aiFeedbackSummary">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="floating-panel p-6 rounded-2xl flex flex-col items-center justify-center text-center border" id="statusCardBorder">
+                        <span class="text-xs font-mono tracking-widest text-slate-400 uppercase mb-4">Overall ATS Match</span>
+                        <div class="radial-gauge w-36 h-36 rounded-full flex flex-col items-center justify-center relative shadow-inner" id="gaugeCircle">
+                            <span class="text-4xl font-black tracking-tighter" id="scoreValue">0%</span>
+                            <span class="text-[9px] font-mono tracking-widest uppercase font-bold mt-1" id="riskStatusLabel">Calculating</span>
+                        </div>
+                        <p class="text-xs text-slate-400 mt-4 max-w-xs font-medium" id="aiFeedbackSummary">
                             Awaiting string processing matrices initialization sequences...
-</p>
-</div>
+                        </p>
+                    </div>
 
-<div class="floating-panel p-6 rounded-2xl border border-cyan-500/20">
-<span class="text-xs font-mono tracking-widest text-cyan-400 uppercase block mb-4">
-<i class="fa-solid fa-circle-exclamation mr-1 text-cyan-500"></i> Missing Critical Keywords
-</span>
-<div class="flex flex-wrap gap-2" id="keywordContainer"></div>
-</div>
+                    <div class="floating-panel p-6 rounded-2xl border border-cyan-500/20">
+                        <span class="text-xs font-mono tracking-widest text-cyan-400 uppercase block mb-4">
+                            <i class="fa-solid fa-circle-exclamation mr-1 text-cyan-500"></i> Missing Critical Keywords
+                        </span>
+                        <div class="flex flex-wrap gap-2" id="keywordContainer"></div>
+                    </div>
 
-<div class="floating-panel p-6 rounded-2xl border border-indigo-500/20">
-<span class="text-xs font-mono tracking-widest text-indigo-400 uppercase block mb-4">
-<i class="fa-solid fa-shield-halved mr-1 text-indigo-500"></i> AI Document Checks
-</span>
-<ul class="space-y-3 text-xs font-mono text-slate-300" id="checksContainer"></ul>
-</div>
-</div>
+                    <div class="floating-panel p-6 rounded-2xl border border-indigo-500/20">
+                        <span class="text-xs font-mono tracking-widest text-indigo-400 uppercase block mb-4">
+                            <i class="fa-solid fa-shield-halved mr-1 text-indigo-500"></i> AI Document Checks
+                        </span>
+                        <ul class="space-y-3 text-xs font-mono text-slate-300" id="checksContainer"></ul>
+                    </div>
+                </div>
 
-<div class="floating-panel p-6 rounded-2xl border border-slate-800 bg-gradient-to-r from-slate-950 to-slate-900">
-<span class="text-xs font-mono tracking-widest text-emerald-400 uppercase block mb-4">
-<i class="fa-solid fa-lightbulb mr-1"></i> Strategic Action Steps to Bypass Filtration
-</span>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="suggestionsContainer"></div>
-</div>
-</div>
-</div>
-</main>
+                <div class="floating-panel p-6 rounded-2xl border border-slate-800 bg-gradient-to-r from-slate-950 to-slate-900">
+                    <span class="text-xs font-mono tracking-widest text-emerald-400 uppercase block mb-4">
+                        <i class="fa-solid fa-lightbulb mr-1"></i> Strategic Action Steps to Bypass Filtration
+                    </span>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="suggestionsContainer"></div>
+                </div>
+            </div>
+        </div>
+    </main>
 
-<footer class="w-full text-center py-6 border-t border-slate-900 text-[10px] font-mono tracking-widest text-slate-600 uppercase">
-<div>Technical information &bull; Cosine Similarity Math Model &bull; &copy; 2026 ats. Engine</div>
-</footer>
+    <footer class="w-full text-center py-6 border-t border-slate-900 text-[10px] font-mono tracking-widest text-slate-600 uppercase">
+        <div>Technical information &bull; Cosine Similarity Math Model &bull; &copy; 2026 ats. Engine</div>
+    </footer>
 
-<script>
-pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+    <script>
+        // Set local inline window workers bypass configurations
+        const pdfjsLib = window['pdfjs-dist/build/pdf'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
 
         let activeInputMode = 'upload'; 
         let compiledExtractedText = ""; 
 
+        // Smooth tab switching dropdown mechanism handler
         function switchResumeMode(mode) {
-activeInputMode = mode;
-constupContainer = document.getElementById('resumeUploadContainer');
-consttxtContainer = document.getElementById('resumeText');
-constbtnUpload = document.getElementById('btn-mode-upload');
-constbtnText = document.getElementById('btn-mode-text');
+            activeInputMode = mode;
+            const upContainer = document.getElementById('resumeUploadContainer');
+            const txtContainer = document.getElementById('resumeText');
+            const btnUpload = document.getElementById('btn-mode-upload');
+            const btnText = document.getElementById('btn-mode-text');
 
             if(mode === 'upload') {
-upContainer.classList.remove('hidden');
-txtContainer.classList.add('hidden');
-btnUpload.className = "px-2.5 py-1 text-[10px] font-mono uppercase rounded-md bg-cyan-500/20 text-cyan-400 font-bold transition";
-btnText.className = "px-2.5 py-1 text-[10px] font-mono uppercase rounded-md text-slate-400 hover:text-slate-200 transition";
+                upContainer.classList.remove('hidden');
+                txtContainer.classList.add('hidden');
+                btnUpload.className = "px-2.5 py-1 text-[10px] font-mono uppercase rounded-md bg-cyan-500/20 text-cyan-400 font-bold transition";
+                btnText.className = "px-2.5 py-1 text-[10px] font-mono uppercase rounded-md text-slate-400 hover:text-slate-200 transition";
             } else {
-upContainer.classList.add('hidden');
-txtContainer.classList.remove('hidden');
-btnText.className = "px-2.5 py-1 text-[10px] font-mono uppercase rounded-md bg-cyan-500/20 text-cyan-400 font-bold transition";
-btnUpload.className = "px-2.5 py-1 text-[10px] font-mono uppercase rounded-md text-slate-400 hover:text-slate-200 transition";
+                upContainer.classList.add('hidden');
+                txtContainer.classList.remove('hidden');
+                btnText.className = "px-2.5 py-1 text-[10px] font-mono uppercase rounded-md bg-cyan-500/20 text-cyan-400 font-bold transition";
+                btnUpload.className = "px-2.5 py-1 text-[10px] font-mono uppercase rounded-md text-slate-400 hover:text-slate-200 transition";
             }
         }
 
-constdropzone = document.getElementById('resumeUploadContainer');
-constfileInput = document.getElementById('resumeFileInput');
-constfileStatus = document.getElementById('fileUploadStatus');
+        const dropzone = document.getElementById('resumeUploadContainer');
+        const fileInput = document.getElementById('resumeFileInput');
+        const fileStatus = document.getElementById('fileUploadStatus');
 
         /* ----------------------------------------------------
-           DYNAMIC FIX: 100% RELIABLE DRAG & DRAG INTERFACE LISTENERS
+           NATIVE BLOCK-LEVEL STREAM EVENT DELEGATION ARRAYS
            ---------------------------------------------------- */
-
-        // Dynamic styling changes on native drag events
-dropzone.addEventListener('dragenter', (e) => { e.preventDefault(); dropzone.classList.add('dragover-active'); });
-dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover-active'); });
-dropzone.addEventListener('dragleave', (e) => { e.preventDefault(); dropzone.classList.remove('dragover-active'); });
-
-dropzone.addEventListener('drop', (e) => {
-e.preventDefault();
-dropzone.classList.remove('dragover-active');
-            if(e.dataTransfer.files.length) {
-handleIncomingFile(e.dataTransfer.files[0]);
-            }
+        
+        // Block native default OS drops from changing active view structures
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            window.addEventListener(eventName, (e) => e.preventDefault(), false);
+            dropzone.addEventListener(eventName, (e) => e.preventDefault(), false);
         });
 
-        // Catches regular browser manual file selections instantly
-fileInput.addEventListener('change', (e) => {
-            if(e.target.files.length) {
-handleIncomingFile(e.target.files[0]);
-            }
+        // Toggle state class triggers
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropzone.addEventListener(eventName, () => dropzone.classList.add('drag-over'), false);
+        });
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropzone.addEventListener(eventName, () => dropzone.classList.remove('drag-over'), false);
         });
 
-        function handleIncomingFile(file) {
-fileStatus.classList.remove('hidden');
-fileStatus.style.display = "block";
-fileStatus.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Processing: ${file.name}...`;
+        // Intercept native drag event dropping drops
+        dropzone.addEventListener('drop', (e) => {
+            const transfer = e.dataTransfer;
+            if (transfer && transfer.files.length) {
+                initiateAsynchronousStream(transfer.files[0]);
+            }
+        }, false);
 
-const reader = new FileReader();
+        // Intercept browse folder click system calls
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files.length) {
+                initiateAsynchronousStream(e.target.files[0]);
+            }
+        }, false);
 
-            if (file.type === "application/pdf" || file.name.endsWith('.pdf')) {
-reader.onload = function(e) { parsePdfArrayBuffer(e.target.result, file.name); };
-reader.readAsArrayBuffer(file);
+        function initiateAsynchronousStream(file) {
+            // STEP 1: INSTANT DYNAMIC NAME GENERATION TRIGGER (Guaranteed output display)
+            fileStatus.classList.remove('hidden');
+            fileStatus.style.display = "inline-block";
+            fileStatus.className = "text-xs text-cyan-400 font-mono bg-cyan-500/10 border border-cyan-500/30 py-2 px-3 rounded-lg mt-2 font-bold truncate max-w-full text-center block";
+            fileStatus.innerHTML = `<i class="fa-solid fa-cog fa-spin mr-1.5"></i> Stream Processing: ${file.name}`;
+            
+            const reader = new FileReader();
+
+            // STEP 2: Asynchronous Binary Matrix Filtering Router
+            if (file.name.toLowerCase().endsWith('.pdf')) {
+                reader.onload = function(e) { 
+                    executePdfArrayExtraction(e.target.result, file.name); 
+                };
+                reader.readAsArrayBuffer(file);
             } 
-            else if (file.type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" || file.name.endsWith('.docx')) {
-reader.onload = function(e) { parseDocxArrayBuffer(e.target.result, file.name); };
-reader.readAsArrayBuffer(file);
+            else if (file.name.toLowerCase().endsWith('.docx')) {
+                reader.onload = function(e) { 
+                    executeDocxArrayExtraction(e.target.result, file.name); 
+                };
+                reader.readAsArrayBuffer(file);
             } 
             else {
-fileStatus.className = "text-xs text-rose-400 font-mono bg-rose-500/10 border border-rose-500/20 py-1.5 px-3 rounded-lg mt-2 relative z-50";
-fileStatus.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-1"></i> System Exception: Please load a PDF or DOCX file.`;
+                fileStatus.className = "text-xs text-rose-400 font-mono bg-rose-500/10 border border-rose-500/20 py-1.5 px-3 rounded-lg mt-2 text-center";
+                fileStatus.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-1"></i> Exception Refusal: Load valid .PDF or .DOCX format`;
+                compiledExtractedText = "";
             }
         }
 
-        function parsePdfArrayBuffer(arrayBuffer, name) {
-pdfjsLib.getDocument({data: arrayBuffer}).promise.then(function(pdf) {
+        function executePdfArrayExtraction(arrayBuffer, name) {
+            // Re-instantiate binary view layers directly inside localized instance parameters to bypass safety blocks
+            const uint8Array = new Uint8Array(arrayBuffer);
+            pdfjsLib.getDocument({data: uint8Array}).promise.then(function(pdf) {
                 let maxPages = pdf.numPages;
                 let countPromises = [];
                 for (let j = 1; j <= maxPages; j++) {
                     let pagePromise = pdf.getPage(j).then(function(page) {
                         return page.getTextContent().then(function(textContent) {
-                            return textContent.items.map(function(item) { return item.str; }).join(' ');
+                            return textContent.items.map(item => item.str).join(' ');
                         });
                     });
-countPromises.push(pagePromise);
+                    countPromises.push(pagePromise);
                 }
                 return Promise.all(countPromises);
             }).then(function(pageTexts) {
-compiledExtractedText = pageTexts.join('\n');
-renderUploadSuccess(name);
-            }).catch(err =>renderUploadError());
+                compiledExtractedText = pageTexts.join('\n').trim();
+                renderUploadSuccess(name);
+            }).catch(err => {
+                renderUploadError("Local PDF security loop barrier matched. Use alternate text mode.");
+            });
         }
 
-        function parseDocxArrayBuffer(arrayBuffer, name) {
-mammoth.extractRawText({arrayBuffer: arrayBuffer})
+        function executeDocxArrayExtraction(arrayBuffer, name) {
+            mammoth.extractRawText({arrayBuffer: arrayBuffer})
                 .then(function(result) {
-compiledExtractedText = result.value;
-renderUploadSuccess(name);
+                    compiledExtractedText = result.value.trim();
+                    renderUploadSuccess(name);
                 })
-                .catch(err =>renderUploadError());
+                .catch(err => renderUploadError("Word Document data stream array rejected."));
         }
 
         function renderUploadSuccess(filename) {
-fileStatus.className = "text-xs text-emerald-400 font-mono bg-emerald-500/10 border border-emerald-500/20 py-1.5 px-3 rounded-lg mt-2 w-full truncate block relative z-50";
-fileStatus.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> Active Matrix: <strong>${filename}</strong>`;
+            fileStatus.className = "text-xs text-emerald-400 font-mono bg-emerald-500/20 border border-emerald-500/40 py-2 px-3 rounded-lg mt-3 w-full truncate block font-bold text-center";
+            fileStatus.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> Loaded Successfully: <strong>${filename}</strong>`;
         }
 
-        function renderUploadError() {
-fileStatus.className = "text-xs text-rose-400 font-mono bg-rose-500/10 border border-rose-500/20 py-1.5 px-3 rounded-lg mt-2 relative z-50";
-fileStatus.innerHTML = `<i class="fa-solid fa-ban mr-1"></i> Core Exception: Reader parsing system failed.`;
-compiledExtractedText = "";
+        function renderUploadError(details) {
+            fileStatus.className = "text-xs text-rose-400 font-mono bg-rose-500/10 border border-rose-500/20 py-1.5 px-3 rounded-lg mt-2 text-center";
+            fileStatus.innerHTML = `<i class="fa-solid fa-ban mr-1"></i> Reader Exception: ${details}`;
+            compiledExtractedText = "";
         }
 
         /* ----------------------------------------------------
            REAL NLP MATHEMATICAL CALCULATOR MODEL (COSINE SIMILARITY)
            ---------------------------------------------------- */
-const CORE_TECH_DICTIONARY = [
+        const CORE_TECH_DICTIONARY = [
             'python', 'sql', 'power bi', 'tableau', 'excel', 'pandas', 'numpy', 'r studio',
             'predictive modeling', 'machine learning', 'data visualization', 'statistics',
             'aws', 'azure', 'cloud', 'data architecture', 'scikit-learn', 'dashboard',
             'data mining', 'analytics', 'big data', 'hadoop', 'spark', 'etl', 'data pipelines'
         ];
 
-const NLP_STOPWORDS = new Set([
+        const NLP_STOPWORDS = new Set([
             'i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', 'your', 'yours',
             'he', 'him', 'his', 'she', 'her', 'it', 'its', 'they', 'them', 'their', 'am', 'is', 'are',
             'was', 'were', 'be', 'been', 'being', 'have', 'has', 'had', 'having', 'do', 'does', 'did',
@@ -357,12 +381,12 @@ const NLP_STOPWORDS = new Set([
             return text.toLowerCase()
                        .replace(/[^\w\s\.\-]/g, ' ')
                        .split(/\s+/)
-                       .filter(word =>word.length> 1 && !NLP_STOPWORDS.has(word));
+                       .filter(word => word.length > 1 && !NLP_STOPWORDS.has(word));
         }
 
         function createFrequencyVector(tokens) {
             let freqMap = {};
-tokens.forEach(tok => { freqMap[tok] = (freqMap[tok] || 0) + 1; });
+            tokens.forEach(tok => { freqMap[tok] = (freqMap[tok] || 0) + 1; });
             return freqMap;
         }
 
@@ -370,7 +394,7 @@ tokens.forEach(tok => { freqMap[tok] = (freqMap[tok] || 0) + 1; });
             let dotProduct = 0; let normA = 0; let normB = 0;
             for (let word in vecA) {
                 if (vecB[word]) dotProduct += vecA[word] * vecB[word];
-normA += Math.pow(vecA[word], 2);
+                normA += Math.pow(vecA[word], 2);
             }
             for (let word in vecB) normB += Math.pow(vecB[word], 2);
             if (normA === 0 || normB === 0) return 0;
@@ -379,122 +403,122 @@ normA += Math.pow(vecA[word], 2);
 
         function processParsingEngine() {
             let finalResumeString = (activeInputMode === 'upload') ? compiledExtractedText : document.getElementById('resumeText').value.trim();
-consttargetJdString = document.getElementById('jdText').value.trim();
+            const targetJdString = document.getElementById('jdText').value.trim();
 
             if (!finalResumeString) {
-                alert("Matrix Diagnostics Error: Drop/browse a valid document file or switch modes to paste raw resume text snippets.");
+                alert("Matrix Input Exception: Please drag-drop or browse a valid document file matrix first.");
                 return;
             }
             if (!targetJdString) {
-                alert("Target Formulation Error: Please provide the target employer Job Description matrix rules.");
+                alert("Target Criteria Failure: Please supply a reference Job Description configuration set.");
                 return;
             }
 
-constscanBtn = document.getElementById('scanButton');
-scanBtn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin mr-1"></i> CALIBRATING NLP VECTORS...`;
+            const scanBtn = document.getElementById('scanButton');
+            scanBtn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin mr-1"></i> CALIBRATING PARSER NODES...`;
+            
+            setTimeout(() => {
+                scanBtn.innerHTML = `<i class="fa-solid fa-microchip mr-1.5"></i> SCAN & ANALYZE`;
+                
+                const resumeTokens = tokenizeTextString(finalResumeString);
+                const jdTokens = tokenizeTextString(targetJdString);
 
-setTimeout(() => {
-scanBtn.innerHTML = `<i class="fa-solid fa-microchip mr-1.5"></i> SCAN & ANALYZE`;
-
-constresumeTokens = tokenizeTextString(finalResumeString);
-constjdTokens = tokenizeTextString(targetJdString);
-
-constresumeVector = createFrequencyVector(resumeTokens);
-constjdVector = createFrequencyVector(jdTokens);
+                const resumeVector = createFrequencyVector(resumeTokens);
+                const jdVector = createFrequencyVector(jdTokens);
 
                 let rawScoreSimilarity = calculateCosineSimilarityMatrix(resumeVector, jdVector);
                 let finalCalculatedScore = Math.round(rawScoreSimilarity * 100);
-
+                
                 let matchedDictionaryCount = 0;
                 let activeMissingKeywords = [];
 
-CORE_TECH_DICTIONARY.forEach(skill => {
+                CORE_TECH_DICTIONARY.forEach(skill => {
                     if (targetJdString.toLowerCase().includes(skill)) {
                         if (!finalResumeString.toLowerCase().includes(skill)) {
-activeMissingKeywords.push(skill);
+                            activeMissingKeywords.push(skill);
                         } else {
-matchedDictionaryCount++;
+                            matchedDictionaryCount++;
                         }
                     }
                 });
 
-                if(matchedDictionaryCount> 0) {
-finalCalculatedScore += Math.min(12, matchedDictionaryCount * 2);
+                if(matchedDictionaryCount > 0) {
+                    finalCalculatedScore += Math.min(12, matchedDictionaryCount * 2);
                 }
-finalCalculatedScore = Math.min(98, Math.max(5, finalCalculatedScore));
+                finalCalculatedScore = Math.min(98, Math.max(5, finalCalculatedScore));
 
-const report = document.getElementById('dashboardReport');
-report.classList.remove('hidden');
-setTimeout(() => { report.classList.add('opacity-100'); }, 50);
-report.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                const report = document.getElementById('dashboardReport');
+                report.classList.remove('hidden');
+                setTimeout(() => { report.classList.add('opacity-100'); }, 50);
+                report.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-document.getElementById('scoreValue').innerText = `${finalCalculatedScore}%`;
+                document.getElementById('scoreValue').innerText = `${finalCalculatedScore}%`;
+                
+                const gaugeCircle = document.getElementById('gaugeCircle');
+                const riskStatusLabel = document.getElementById('riskStatusLabel');
+                const feedbackSummary = document.getElementById('aiFeedbackSummary');
+                const statusCardBorder = document.getElementById('statusCardBorder');
 
-constgaugeCircle = document.getElementById('gaugeCircle');
-constriskStatusLabel = document.getElementById('riskStatusLabel');
-constfeedbackSummary = document.getElementById('aiFeedbackSummary');
-conststatusCardBorder = document.getElementById('statusCardBorder');
-
-                if(finalCalculatedScore>= 75) {
-gaugeCircle.style.borderColor = "rgb(52, 211, 153)";
-statusCardBorder.style.borderColor = "rgba(52, 211, 153, 0.2)";
-riskStatusLabel.innerText = "Low Risk";
-riskStatusLabel.className = "text-[9px] font-mono tracking-widest text-emerald-400 uppercase font-bold mt-1";
-feedbackSummary.innerText = "Excellent vector alignment! Your structural text layers show strong compatibility indexes with target parameters.";
-                } else if(finalCalculatedScore>= 50) {
-gaugeCircle.style.borderColor = "rgb(245, 158, 11)";
-statusCardBorder.style.borderColor = "rgba(245, 158, 11, 0.2)";
-riskStatusLabel.innerText = "Medium Risk";
-riskStatusLabel.className = "text-[9px] font-mono tracking-widest text-amber-400 uppercase font-bold mt-1";
-feedbackSummary.innerText = "Moderate contextual intersection detected. Supplementing missing semantic nodes will bypass edge rejection barriers.";
+                if(finalCalculatedScore >= 75) {
+                    gaugeCircle.style.borderColor = "rgb(52, 211, 153)";
+                    statusCardBorder.style.borderColor = "rgba(52, 211, 153, 0.2)";
+                    riskStatusLabel.innerText = "Low Risk";
+                    riskStatusLabel.className = "text-[9px] font-mono tracking-widest text-emerald-400 uppercase font-bold mt-1";
+                    feedbackSummary.innerText = "Excellent vector alignment! Your structural text layers show strong compatibility indexes.";
+                } else if(finalCalculatedScore >= 50) {
+                    gaugeCircle.style.borderColor = "rgb(245, 158, 11)";
+                    statusCardBorder.style.borderColor = "rgba(245, 158, 11, 0.2)";
+                    riskStatusLabel.innerText = "Medium Risk";
+                    riskStatusLabel.className = "text-[9px] font-mono tracking-widest text-amber-400 uppercase font-bold mt-1";
+                    feedbackSummary.innerText = "Moderate contextual intersection detected. Supplementing missing semantic nodes will bypass edge rejections.";
                 } else {
-gaugeCircle.style.borderColor = "rgb(244, 63, 94)";
-statusCardBorder.style.borderColor = "rgba(244, 63, 94, 0.2)";
-riskStatusLabel.innerText = "High Risk";
-riskStatusLabel.className = "text-[9px] font-mono tracking-widest text-rose-400 uppercase font-bold mt-1";
-feedbackSummary.innerText = "Critical operational divergence logged. The data matrix structure shows insufficient frequency density matching for automated systems.";
+                    gaugeCircle.style.borderColor = "rgb(244, 63, 94)";
+                    statusCardBorder.style.borderColor = "rgba(244, 63, 94, 0.2)";
+                    riskStatusLabel.innerText = "High Risk";
+                    riskStatusLabel.className = "text-[9px] font-mono tracking-widest text-rose-400 uppercase font-bold mt-1";
+                    feedbackSummary.innerText = "Critical operational divergence logged. The data matrix structure shows insufficient frequency density matching.";
                 }
 
-constkeywordContainer = document.getElementById('keywordContainer');
+                const keywordContainer = document.getElementById('keywordContainer');
                 if(activeMissingKeywords.length === 0) {
-keywordContainer.innerHTML = `
-<span class="text-xs text-emerald-400 font-mono bg-emerald-500/10 border border-emerald-500/20 py-2 px-3 rounded-lg w-full text-center">
-<i class="fa-solid fa-check-double mr-1"></i> No critical structural keyword deficits identified.
-</span>`;
+                    keywordContainer.innerHTML = `
+                        <span class="text-xs text-emerald-400 font-mono bg-emerald-500/10 border border-emerald-500/20 py-2 px-3 rounded-lg w-full text-center">
+                            <i class="fa-solid fa-check-double mr-1"></i> No critical structural keyword deficits identified.
+                        </span>`;
                 } else {
-keywordContainer.innerHTML = activeMissingKeywords.map(kw => `
-<span class="bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 font-mono text-[10px] px-3 py-1.5 rounded-md uppercase tracking-wider">
-<i class="fa-solid fa-plus-circle text-[9px] mr-1 text-cyan-400"></i> ${kw}
-</span>
+                    keywordContainer.innerHTML = activeMissingKeywords.map(kw => `
+                        <span class="bg-cyan-500/10 text-cyan-300 border border-cyan-500/30 font-mono text-[10px] px-3 py-1.5 rounded-md uppercase tracking-wider">
+                            <i class="fa-solid fa-plus-circle text-[9px] mr-1 text-cyan-400"></i> ${kw}
+                        </span>
                     `).join('');
                 }
 
-                let isResumeTooShort = finalResumeString.length< 400;
+                let isResumeTooShort = finalResumeString.length < 400;
                 let hasTablesStructure = finalResumeString.includes('|') || finalResumeString.includes('---');
 
-document.getElementById('checksContainer').innerHTML = `
-<li class="flex items-center text-emerald-400 gap-2"><i class="fa-solid fa-square-check"></i> Encoding System Status: Secure</li>
-<li class="flex items-center ${isResumeTooShort ? 'text-amber-400' : 'text-emerald-400'} gap-2">
-<i class="fa-solid ${isResumeTooShort ? 'fa-triangle-exclamation' : 'fa-square-check'}"></i> Length Density Check: ${isResumeTooShort ? 'Under-optimized Content' : 'Passed'}
-</li>
-<li class="flex items-center ${hasTablesStructure ? 'text-amber-400' : 'text-emerald-400'} gap-2">
-<i class="fa-solid ${hasTablesStructure ? 'fa-triangle-exclamation' : 'fa-square-check'}"></i> Vector Table Isolation: ${hasTablesStructure ? 'Grid Conflict Risk' : 'Passed'}
-</li>
+                document.getElementById('checksContainer').innerHTML = `
+                    <li class="flex items-center text-emerald-400 gap-2"><i class="fa-solid fa-square-check"></i> File Encoding Structures: Clean</li>
+                    <li class="flex items-center ${isResumeTooShort ? 'text-amber-400' : 'text-emerald-400'} gap-2">
+                        <i class="fa-solid ${isResumeTooShort ? 'fa-triangle-exclamation' : 'fa-square-check'}"></i> Length Density Check: ${isResumeTooShort ? 'Under-optimized Content' : 'Passed'}
+                    </li>
+                    <li class="flex items-center ${hasTablesStructure ? 'text-amber-400' : 'text-emerald-400'} gap-2">
+                        <i class="fa-solid ${hasTablesStructure ? 'fa-triangle-exclamation' : 'fa-square-check'}"></i> Vector Table Isolation: ${hasTablesStructure ? 'Grid Conflict Risk' : 'Passed'}
+                    </li>
                 `;
 
-document.getElementById('suggestionsContainer').innerHTML = `
-<div class="p-4 bg-slate-900/60 border border-slate-800 rounded-xl space-y-1">
-<div class="text-xs font-bold text-cyan-400 uppercase font-mono tracking-wider">1. Solve Keyword Deficits</div>
-<p class="text-xs text-slate-400 leading-relaxed">Your parsing metrics fell short because target words like [ ${activeMissingKeywords.slice(0, 3).join(', ') || 'specialized stacks'} ] were omitted. Embed them naturally.</p>
-</div>
-<div class="p-4 bg-slate-900/60 border border-slate-800 rounded-xl space-y-1">
-<div class="text-xs font-bold text-indigo-400 uppercase font-mono tracking-wider">2. Convert Functional Descriptions into Quantified Metrics</div>
-<p class="text-xs text-slate-400 leading-relaxed">Automated scoring models prioritize numerical matrices. Replace process updates with clear integer expressions (e.g., 'Enhanced runtime architecture efficiency by 24%').</p>
-</div>
+                document.getElementById('suggestionsContainer').innerHTML = `
+                    <div class="p-4 bg-slate-900/60 border border-slate-800 rounded-xl space-y-1">
+                        <div class="text-xs font-bold text-cyan-400 uppercase font-mono tracking-wider">1. Solve Keyword Deficits</div>
+                        <p class="text-xs text-slate-400 leading-relaxed">Your parsing metrics fell short because target words like [ ${activeMissingKeywords.slice(0, 3).join(', ') || 'specialized stacks'} ] were omitted. Embed them naturally.</p>
+                    </div>
+                    <div class="p-4 bg-slate-900/60 border border-slate-800 rounded-xl space-y-1">
+                        <div class="text-xs font-bold text-indigo-400 uppercase font-mono tracking-wider">2. Convert Functional Descriptions into Quantified Metrics</div>
+                        <p class="text-xs text-slate-400 leading-relaxed">Automated scoring models prioritize numerical matrices. Replace process updates with clear integer expressions (e.g., 'Enhanced runtime architecture efficiency by 24%').</p>
+                    </div>
                 `;
 
             }, 800);
         }
-</script>
+    </script>
 </body>
 </html>
