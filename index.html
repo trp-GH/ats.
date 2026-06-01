@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ats. // 100% Real AI Resume Scanner</title>
+<title>ats. // 100% Functional AI Resume Scanner</title>
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
@@ -44,15 +44,16 @@
             box-shadow: 0 0 15px rgba(0, 242, 254, 0.25);
         }
 
-        .dropzone {
+        /* Fixed Active State Glow Animations */
+        .dropzone-box {
             border: 2px dashed rgba(0, 242, 254, 0.3);
             background: rgba(15, 23, 42, 0.5);
             transition: all 0.2s ease-in-out;
         }
-        .dropzone.dragover {
-            border-color: rgba(0, 242, 254, 1);
-            background: rgba(6, 182, 212, 0.15);
-            box-shadow: 0 0 25px rgba(0, 242, 254, 0.3);
+        .dropzone-box.dragover-active {
+            border-color: rgba(0, 242, 254, 1) !important;
+            background: rgba(6, 182, 212, 0.15) !important;
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.4);
         }
 
         .cube-container { position: relative; width: 100px; height: 100px; perspective: 400px; }
@@ -79,7 +80,6 @@
         .radial-gauge {
             background: radial-gradient(circle, rgba(15,23,42,0.8) 40%, rgba(6,182,212,0.05) 100%);
             border: 2px dashed rgba(6, 182, 212, 0.3);
-            transition: all 0.5s ease;
         }
 
         .floating-panel {
@@ -133,13 +133,15 @@
 </div>
 </div>
 
-<div id="resumeUploadContainer" class="dropzone flex-grow rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer min-h-[224px]">
-<input type="file" id="resumeFileInput" class="hidden" accept=".pdf,.docx">
-<div class="space-y-3 w-full">
+<div id="resumeUploadContainer" class="dropzone-box flex-grow rounded-xl p-6 flex flex-col items-center justify-center text-center cursor-pointer min-h-[224px] relative hover:border-cyan-400/60 transition-all">
+
+<input type="file" id="resumeFileInput" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-30" accept=".pdf,.docx">
+
+<div class="space-y-3 w-full pointer-events-none relative z-10">
 <div class="text-4xl text-cyan-400"><i class="fa-solid fa-cloud-arrow-up"></i></div>
 <div class="text-sm font-mono text-slate-200">Drag & Drop or <span class="text-cyan-400 font-bold underline">Browse Files</span></div>
 <p class="text-[10px] text-slate-500 font-mono">SUPPORTS: .PDF & .DOCX Formats</p>
-<div id="fileUploadStatus" class="text-xs text-emerald-400 font-mono hidden truncate max-w-full bg-emerald-500/10 border border-emerald-500/20 py-2 px-3 rounded-lg mt-2"></div>
+<div id="fileUploadStatus" class="text-xs text-emerald-400 font-mono hidden truncate max-w-full bg-emerald-500/10 border border-emerald-500/20 py-2 px-3 rounded-lg mt-2 pointer-events-auto"></div>
 </div>
 </div>
 
@@ -158,7 +160,7 @@
 </div>
 </div>
 
-<button type="button" onclick="processParsingEngine()" id="scanButton" class="w-full lg:w-auto px-6 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-black text-xs tracking-widest uppercase rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-[0_0_25px_rgba(6,182,212,0.4)] cursor-pointer whitespace-nowrap">
+<button type="button" onclick="processParsingEngine()" id="scanButton" class="w-full lg:w-auto px-6 py-4 bg-gradient-to-r from-cyan-500 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-black text-xs tracking-widest uppercase rounded-xl transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-[0_0_25px_rgba(6,182,212,0.4)] cursor-pointer whitespace-nowrap z-40 relative">
 <i class="fa-solid fa-microchip mr-1.5"></i> SCAN & ANALYZE
 </button>
 </div>
@@ -177,7 +179,7 @@
 </div>
 
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<div class="floating-panel p-6 rounded-2xl flex flex-col items-center justify-center text-center border id-border-status">
+<div class="floating-panel p-6 rounded-2xl flex flex-col items-center justify-center text-center border" id="statusCardBorder">
 <span class="text-xs font-mono tracking-widest text-slate-400 uppercase mb-4">Overall ATS Match</span>
 <div class="radial-gauge w-36 h-36 rounded-full flex flex-col items-center justify-center relative shadow-inner" id="gaugeCircle">
 <span class="text-4xl font-black tracking-tighter" id="scoreValue">0%</span>
@@ -247,27 +249,34 @@ constdropzone = document.getElementById('resumeUploadContainer');
 constfileInput = document.getElementById('resumeFileInput');
 constfileStatus = document.getElementById('fileUploadStatus');
 
-dropzone.addEventListener('click', () =>fileInput.click());
+        /* ----------------------------------------------------
+           DYNAMIC FIX: 100% RELIABLE DRAG & DRAG INTERFACE LISTENERS
+           ---------------------------------------------------- */
 
-window.addEventListener('dragover', (e) =>e.preventDefault(), false);
-window.addEventListener('drop', (e) =>e.preventDefault(), false);
+        // Dynamic styling changes on native drag events
+dropzone.addEventListener('dragenter', (e) => { e.preventDefault(); dropzone.classList.add('dragover-active'); });
+dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover-active'); });
+dropzone.addEventListener('dragleave', (e) => { e.preventDefault(); dropzone.classList.remove('dragover-active'); });
 
-dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('dragover'); }, false);
-dropzone.addEventListener('dragleave', (e) => { e.preventDefault(); dropzone.classList.remove('dragover'); }, false);
 dropzone.addEventListener('drop', (e) => {
 e.preventDefault();
-dropzone.classList.remove('dragover');
-            if(e.dataTransfer.files.length) handleIncomingFile(e.dataTransfer.files[0]);
+dropzone.classList.remove('dragover-active');
+            if(e.dataTransfer.files.length) {
+handleIncomingFile(e.dataTransfer.files[0]);
+            }
         });
 
+        // Catches regular browser manual file selections instantly
 fileInput.addEventListener('change', (e) => {
-            if(e.target.files.length) handleIncomingFile(e.target.files[0]);
+            if(e.target.files.length) {
+handleIncomingFile(e.target.files[0]);
+            }
         });
 
         function handleIncomingFile(file) {
 fileStatus.classList.remove('hidden');
 fileStatus.style.display = "block";
-fileStatus.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Reading ${file.name}...`;
+fileStatus.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-1"></i> Processing: ${file.name}...`;
 
 const reader = new FileReader();
 
@@ -280,8 +289,8 @@ reader.onload = function(e) { parseDocxArrayBuffer(e.target.result, file.name); 
 reader.readAsArrayBuffer(file);
             } 
             else {
-fileStatus.className = "text-xs text-rose-400 font-mono bg-rose-500/10 border border-rose-500/20 py-1.5 px-3 rounded-lg mt-2";
-fileStatus.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-1"></i> Format Error: Use PDF or DOCX.`;
+fileStatus.className = "text-xs text-rose-400 font-mono bg-rose-500/10 border border-rose-500/20 py-1.5 px-3 rounded-lg mt-2 relative z-50";
+fileStatus.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-1"></i> System Exception: Please load a PDF or DOCX file.`;
             }
         }
 
@@ -314,21 +323,19 @@ renderUploadSuccess(name);
         }
 
         function renderUploadSuccess(filename) {
-fileStatus.className = "text-xs text-emerald-400 font-mono bg-emerald-500/10 border border-emerald-500/20 py-1.5 px-3 rounded-lg mt-2 w-full truncate block";
-fileStatus.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> Loaded: <strong>${filename}</strong>`;
+fileStatus.className = "text-xs text-emerald-400 font-mono bg-emerald-500/10 border border-emerald-500/20 py-1.5 px-3 rounded-lg mt-2 w-full truncate block relative z-50";
+fileStatus.innerHTML = `<i class="fa-solid fa-circle-check mr-1"></i> Active Matrix: <strong>${filename}</strong>`;
         }
 
         function renderUploadError() {
-fileStatus.className = "text-xs text-rose-400 font-mono bg-rose-500/10 border border-rose-500/20 py-1.5 px-3 rounded-lg mt-2";
-fileStatus.innerHTML = `<i class="fa-solid fa-ban mr-1"></i> System Exception: Parsing error.`;
+fileStatus.className = "text-xs text-rose-400 font-mono bg-rose-500/10 border border-rose-500/20 py-1.5 px-3 rounded-lg mt-2 relative z-50";
+fileStatus.innerHTML = `<i class="fa-solid fa-ban mr-1"></i> Core Exception: Reader parsing system failed.`;
 compiledExtractedText = "";
         }
 
         /* ----------------------------------------------------
-           100% REAL AI NLP MATHEMATICAL CALCULATOR ENGINE
+           REAL NLP MATHEMATICAL CALCULATOR MODEL (COSINE SIMILARITY)
            ---------------------------------------------------- */
-
-        // Dictionary list of tech stacks keywords to cross-match
 const CORE_TECH_DICTIONARY = [
             'python', 'sql', 'power bi', 'tableau', 'excel', 'pandas', 'numpy', 'r studio',
             'predictive modeling', 'machine learning', 'data visualization', 'statistics',
@@ -336,7 +343,6 @@ const CORE_TECH_DICTIONARY = [
             'data mining', 'analytics', 'big data', 'hadoop', 'spark', 'etl', 'data pipelines'
         ];
 
-        // Standard Natural Language Stopwords to avoid false positive matches
 const NLP_STOPWORDS = new Set([
             'i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', 'your', 'yours',
             'he', 'him', 'his', 'she', 'her', 'it', 'its', 'they', 'them', 'their', 'am', 'is', 'are',
@@ -349,7 +355,7 @@ const NLP_STOPWORDS = new Set([
 
         function tokenizeTextString(text) {
             return text.toLowerCase()
-                       .replace(/[^\w\s\.\-]/g, ' ') // Strip heavy symbols
+                       .replace(/[^\w\s\.\-]/g, ' ')
                        .split(/\s+/)
                        .filter(word =>word.length> 1 && !NLP_STOPWORDS.has(word));
         }
@@ -360,23 +366,13 @@ tokens.forEach(tok => { freqMap[tok] = (freqMap[tok] || 0) + 1; });
             return freqMap;
         }
 
-        // Standard Cosine Similarity Vector Formula: Match = (A . B) / (||A|| * ||B||)
         function calculateCosineSimilarityMatrix(vecA, vecB) {
-            let dotProduct = 0;
-            let normA = 0;
-            let normB = 0;
-
+            let dotProduct = 0; let normA = 0; let normB = 0;
             for (let word in vecA) {
-                if (vecB[word]) {
-dotProduct += vecA[word] * vecB[word];
-                }
+                if (vecB[word]) dotProduct += vecA[word] * vecB[word];
 normA += Math.pow(vecA[word], 2);
             }
-
-            for (let word in vecB) {
-normB += Math.pow(vecB[word], 2);
-            }
-
+            for (let word in vecB) normB += Math.pow(vecB[word], 2);
             if (normA === 0 || normB === 0) return 0;
             return dotProduct / (Math.sqrt(normA) * Math.sqrt(normB));
         }
@@ -386,34 +382,29 @@ normB += Math.pow(vecB[word], 2);
 consttargetJdString = document.getElementById('jdText').value.trim();
 
             if (!finalResumeString) {
-                alert("Input Missing: Drop/browse a valid document file or paste your resume script text matrix.");
+                alert("Matrix Diagnostics Error: Drop/browse a valid document file or switch modes to paste raw resume text snippets.");
                 return;
             }
             if (!targetJdString) {
-                alert("Target Missing: Please supply the Job Description criteria parameters.");
+                alert("Target Formulation Error: Please provide the target employer Job Description matrix rules.");
                 return;
             }
 
 constscanBtn = document.getElementById('scanButton');
-scanBtn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin mr-1"></i> PARSING VECTORS...`;
+scanBtn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin mr-1"></i> CALIBRATING NLP VECTORS...`;
 
 setTimeout(() => {
 scanBtn.innerHTML = `<i class="fa-solid fa-microchip mr-1.5"></i> SCAN & ANALYZE`;
 
-                // 1. Tokenize & Execute Math Vectors
 constresumeTokens = tokenizeTextString(finalResumeString);
 constjdTokens = tokenizeTextString(targetJdString);
 
 constresumeVector = createFrequencyVector(resumeTokens);
 constjdVector = createFrequencyVector(jdTokens);
 
-                // Calculate exact text alignment intersection math
                 let rawScoreSimilarity = calculateCosineSimilarityMatrix(resumeVector, jdVector);
-
-                // Normalize and weight scale to match industry ATS scoring parameters safely
                 let finalCalculatedScore = Math.round(rawScoreSimilarity * 100);
 
-                // Boost tracking index based on keyword dictionary profile triggers slightly
                 let matchedDictionaryCount = 0;
                 let activeMissingKeywords = [];
 
@@ -427,45 +418,43 @@ matchedDictionaryCount++;
                     }
                 });
 
-                // Apply weighted keyword context logic modifiers
                 if(matchedDictionaryCount> 0) {
 finalCalculatedScore += Math.min(12, matchedDictionaryCount * 2);
                 }
-                // Cap results dynamically at 98% to simulate real industrial parameters honestly
 finalCalculatedScore = Math.min(98, Math.max(5, finalCalculatedScore));
 
-                // 2. Unveil Viewport Panels
 const report = document.getElementById('dashboardReport');
 report.classList.remove('hidden');
 setTimeout(() => { report.classList.add('opacity-100'); }, 50);
 report.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-                // 3. Render Output Dynamically
 document.getElementById('scoreValue').innerText = `${finalCalculatedScore}%`;
 
 constgaugeCircle = document.getElementById('gaugeCircle');
 constriskStatusLabel = document.getElementById('riskStatusLabel');
 constfeedbackSummary = document.getElementById('aiFeedbackSummary');
+conststatusCardBorder = document.getElementById('statusCardBorder');
 
-                // Dynamic UI updates based on real score calculations
                 if(finalCalculatedScore>= 75) {
 gaugeCircle.style.borderColor = "rgb(52, 211, 153)";
+statusCardBorder.style.borderColor = "rgba(52, 211, 153, 0.2)";
 riskStatusLabel.innerText = "Low Risk";
 riskStatusLabel.className = "text-[9px] font-mono tracking-widest text-emerald-400 uppercase font-bold mt-1";
 feedbackSummary.innerText = "Excellent vector alignment! Your structural text layers show strong compatibility indexes with target parameters.";
                 } else if(finalCalculatedScore>= 50) {
 gaugeCircle.style.borderColor = "rgb(245, 158, 11)";
+statusCardBorder.style.borderColor = "rgba(245, 158, 11, 0.2)";
 riskStatusLabel.innerText = "Medium Risk";
 riskStatusLabel.className = "text-[9px] font-mono tracking-widest text-amber-400 uppercase font-bold mt-1";
 feedbackSummary.innerText = "Moderate contextual intersection detected. Supplementing missing semantic nodes will bypass edge rejection barriers.";
                 } else {
 gaugeCircle.style.borderColor = "rgb(244, 63, 94)";
+statusCardBorder.style.borderColor = "rgba(244, 63, 94, 0.2)";
 riskStatusLabel.innerText = "High Risk";
 riskStatusLabel.className = "text-[9px] font-mono tracking-widest text-rose-400 uppercase font-bold mt-1";
 feedbackSummary.innerText = "Critical operational divergence logged. The data matrix structure shows insufficient frequency density matching for automated systems.";
                 }
 
-                // Append Dynamic Missing Keywords Chips
 constkeywordContainer = document.getElementById('keywordContainer');
                 if(activeMissingKeywords.length === 0) {
 keywordContainer.innerHTML = `
@@ -480,7 +469,6 @@ keywordContainer.innerHTML = activeMissingKeywords.map(kw => `
                     `).join('');
                 }
 
-                // Check formatting variables dynamically based on textual length properties
                 let isResumeTooShort = finalResumeString.length< 400;
                 let hasTablesStructure = finalResumeString.includes('|') || finalResumeString.includes('---');
 
@@ -494,7 +482,6 @@ document.getElementById('checksContainer').innerHTML = `
 </li>
                 `;
 
-                // Update Strategic Suggestions intelligently based on real results output mapping
 document.getElementById('suggestionsContainer').innerHTML = `
 <div class="p-4 bg-slate-900/60 border border-slate-800 rounded-xl space-y-1">
 <div class="text-xs font-bold text-cyan-400 uppercase font-mono tracking-wider">1. Solve Keyword Deficits</div>
